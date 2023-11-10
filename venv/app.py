@@ -13,7 +13,22 @@ app.secret_key = "Code"
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
+def create_diamond(num_lines):
+    if num_lines % 2 == 0:
+        num_lines += 1
 
+    diamond = ""
+    for i in range(1, num_lines, 2):
+        diamond += " " * ((num_lines - i) // 2)
+        diamond += "FORMULAQ" * (i // 6 + 1)
+        diamond += "\n"
+
+    for i in range(num_lines, 0, -2):
+        diamond += " " * ((num_lines - i) // 2)
+        diamond += "FORMULAQ" * (i // 6 + 1)
+        diamond += "\n"
+
+    return diamond
 
 GOOGLE_CLIENT_ID = "769259634860-5uif81n6opduoajqkgndmh24pk0rv5u4.apps.googleusercontent.com"
 
@@ -77,6 +92,14 @@ def logout():
 def index():
   return """
         <div class="index-content" style="text-align: center;">
+        <p style="font-family: Arial, sans-serif;">Enter the no of lines</p>
+        <form action="/display_diamond" method="post">
+            <label for="num_lines">Number of Lines (Max: 100):</label>
+            <input type="number" id="num_lines" name="num_lines" min="1" max="100" required>
+            <button type="submit" style="margin-top: 10px; padding: 10px 20px; border: none; background-color: #007bff; color: white; border-radius: 5px; cursor: pointer;">Display</button>
+        </form>
+        </div>
+        <div class="index-content" style="text-align: center;">
             <h1 style="font-family: Arial, sans-serif;" >Welcome to the Application</h1>
             <p style="font-family: Arial, sans-serif;">click login into your google account</p>
             <a href='/login'>
@@ -85,6 +108,15 @@ def index():
         </div>
     """
 
+@app.route("/display_diamond", methods=['POST'])
+def display_diamond():
+    num_lines = int(request.form['num_lines'])
+    diamond = create_diamond(num_lines)
+    return f"""
+    <h2>Pattern:</h2>
+    <pre>{diamond}</pre>
+    <a href='/'><button style="margin-top: 10px; padding: 10px 20px; border: none; background-color: #007bff; color: white; border-radius: 5px; cursor: pointer;">Back to Home</button></a>
+    """
 
 
 
