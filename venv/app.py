@@ -20,12 +20,12 @@ def create_diamond(num_lines):
     diamond = ""
     for i in range(1, num_lines, 2):
         diamond += " " * ((num_lines - i) // 2)
-        diamond += "atharv" * (i // 6 + 1)
+        diamond += "FORMULAQ" * (i // 6 + 1)
         diamond += "\n"
 
     for i in range(num_lines, 0, -2):
         diamond += " " * ((num_lines - i) // 2)
-        diamond += "atharv" * (i // 6 + 1)
+        diamond += "FORMULAQ" * (i // 6 + 1)
         diamond += "\n"
 
     return diamond
@@ -113,7 +113,7 @@ def display_diamond():
     num_lines = int(request.form['num_lines'])
     diamond = create_diamond(num_lines)
     return f"""
-    <h2>Diamond Pattern:</h2>
+    <h2>Pattern:</h2>
     <pre>{diamond}</pre>
     <a href='/'><button style="margin-top: 10px; padding: 10px 20px; border: none; background-color: #007bff; color: white; border-radius: 5px; cursor: pointer;">Back to Home</button></a>
     """
